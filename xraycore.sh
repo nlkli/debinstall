@@ -28,6 +28,8 @@ if ! command -v xray >/dev/null 2>&1; then
     bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install -u root
 fi
 
+hostname=$(hostname)
+
 serverip=$(curl -s ifconfig.me || curl -s ipinfo.io/ip)
 
 xrayconfigpath=/usr/local/etc/xray/config.json
@@ -48,6 +50,8 @@ if [ ! -f "$xrayconfigpath" ]; then
 }
 EOF
 fi
+
+n=0
 
 new_vless_reality_inbound() {
     local port=$1
@@ -88,7 +92,8 @@ new_vless_reality_inbound() {
     done
 
     for ((i=1; i<=userscount; i++)); do
-        local username="user$i"
+        n=$((n+1))
+        local username="${hostname}user$n"
         local uuid=$(xray uuid)
         local shortid=$(openssl rand -hex 4)
 

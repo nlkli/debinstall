@@ -24,6 +24,8 @@ inputport() {
     echo "$port"
 }
 
+hostname=$(hostname)
+
 serverip=$(curl -s ifconfig.me || curl -s ipinfo.io/ip)
 
 proxyversion=0.9.5
@@ -76,7 +78,7 @@ while true; do
 
     for ((i=1; i<=userscount; i++)); do
         n=$((n+1))
-        username="user$n"
+        username="${hostname}user$n"
         password=$(openssl rand -base64 12 | tr -d '/+' | cut -c1-12)
         echo "users $username:CL:$password" >> /etc/3proxy/3proxy.cfg
         echo "http://$username:$password@$serverip:$port" >> "$3proxylinksfile"
@@ -102,7 +104,7 @@ while true; do
 
     for ((i=1; i<=userscount; i++)); do
         n=$((n+1))
-        username="user$n"
+        username="${hostname}user$n"
         password=$(openssl rand -base64 12 | tr -d '/+' | cut -c1-12)
         echo "users $username:CL:$password" >> /etc/3proxy/3proxy.cfg
 		echo "socks5://$username:$password@$serverip:$port" >> "$3proxylinksfile"
