@@ -35,7 +35,7 @@ serverip=$(curl -s ifconfig.me || curl -s ipinfo.io/ip)
 xrayconfigpath=/usr/local/etc/xray/config.json
 xraylinksfile=/usr/local/etc/xray/links
 
-if [ ! -f "$xrayconfigpath" ]; then
+if [ ! -f "$xraylinksfile" ]; then
 	cat > "$xrayconfigpath" <<EOF
 {
   "log": {
