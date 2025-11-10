@@ -62,7 +62,10 @@ auth strong
 EOF
 fi
 
+mkdir -p /etc/3proxy /var/log/3proxy
+
 3proxylinksfile=/etc/3proxy/links
+touch "$3proxylinksfile"
 
 n=0
 while true; do
