@@ -58,7 +58,7 @@ new_vless_reality_inbound() {
     local desthost=$2
     local keys=$(xray x25519)
     local privatekey=$(echo "$keys" | awk '/PrivateKey:/ {print $2}')
-    local publickey=$(echo "$keys" | awk '/PublicKey:/ {print $2}')
+    local publickey=$(echo "$keys" | awk '/Password:/ {print $2}')
 
     local inboundjson=$(jq -n \
         --arg port "$port" \
