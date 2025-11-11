@@ -17,13 +17,13 @@ fi
 mkdir -p "$ORIGINAL_HOME/.config/yazi"
 
 if [ ! -f "$ORIGINAL_HOME/.config/yazi/yazi.toml" ]; then
-	cat > "$ORIGINAL_HOME/.config/yazi/yazi.toml" <<EOF
+	cat > "$ORIGINAL_HOME/.config/yazi/yazi.toml" <<'EOF'
 [mgr]
 show_hidden = true
 ratio = [1, 2, 4]
 [opener]
 edit = [
-    { run = 'vim "$@"', desc = "vim", block = true },
+    { run = '${EDITOR:-vim} "$@"', desc = "$EDITOR", block = true },
 ]
 open = [
     { run = 'xdg-open "$1"', desc = "open", for = "linux" },

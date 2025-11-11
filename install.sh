@@ -33,6 +33,7 @@ cd /home/$NEW_USERNAME/tmpscripts
 rm -f /home/$NEW_USERNAME/runscripts.sh
 cd ~
 rm -rf tmpscripts
+chown -R "$NEW_USERNAME":"$NEW_USERNAME" /home/"$NEW_USERNAME"
 EOF
 
 chmod +x "$newuserhome"/runscripts.sh

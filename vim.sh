@@ -11,7 +11,7 @@ if ! command -v vim >/dev/null 2>&1; then
 fi
 
 if [ ! -f "$ORIGINAL_HOME/.vimrc" ]; then
-	cat > "$ORIGINAL_HOME/.vimrc" <<EOF
+	cat > "$ORIGINAL_HOME/.vimrc" <<'EOF'
 filetype plugin indent on
 syntax on
 set number

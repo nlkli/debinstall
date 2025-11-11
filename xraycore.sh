@@ -128,9 +128,4 @@ done
 cat "$xrayconfigpath"
 chmod 600 "$xrayconfigpath"
 
-echo ""
-echo "Ссылки сохранены в: $xraylinksfile"
-
-cat "$xraylinksfile"
-
 systemctl restart xray || systemctl start xray
