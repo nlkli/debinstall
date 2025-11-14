@@ -21,19 +21,36 @@ if [ ! -f "$ORIGINAL_HOME/.config/yazi/yazi.toml" ]; then
 [mgr]
 show_hidden = true
 ratio = [1, 2, 4]
+linemode = "size"
 [opener]
 edit = [
-    { run = '${EDITOR:-vim} "$@"', desc = "$EDITOR", block = true },
+    { run = '${EDITOR:-nvim} "$@"', desc = "editor", block = true },
 ]
 open = [
     { run = 'xdg-open "$1"', desc = "open", for = "linux" },
     { run = 'open "$@"', desc = "open", for = "macos" },
 ]
+extract = [
+	{ run = 'ya pub extract --list "$@"', desc = "Extract here", for = "unix" },
+]
 [open]
 rules = [
-	{ mime = "*/", use = "edit" },
+	{ name = "*/", use = "edit" },
     { mime = "text/*", use = "edit" },
-	# { name = "*", use = "open" },
+    { mime = "{image,audio,video}/*", use = "open" },
+    { mime = "application/pdf", use = "open" },
+    { mime = "application/{zip,rar,7z*,tar,gzip,xz,zstd,bzip*,lzma,compress,archive,cpio,arj,xar,ms-cab*}", use = ["extract", "open"] },
+    { mime = "inode/empty", use = "edit" },
+	{ name = "*", use = [ "edit", "open" ] },
+]
+EOF
+if [ ! -f "$ORIGINAL_HOME/.config/yazi/keymap.toml" ]; then
+	cat > "$ORIGINAL_HOME/.config/yazi/keymap.toml" <<'EOF'
+[mgr]
+append_keymap = [
+	{ on = [ "g", "s" ], run = "cd ~/Desktop", desc = "Go ~/Desktop" },
+	{ on = [ "g", "p" ], run = "cd ~/Projects", desc = "Go ~/Projects" },
+	{ on = [ "g", "o" ], run = "cd ~/Documents", desc = "Go ~/Documents" },
 ]
 EOF
 fi
