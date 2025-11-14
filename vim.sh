@@ -3,15 +3,15 @@
 set -e
 
 [[ $EUID -eq 0 ]] || exec sudo "$0" "$(whoami)" "$HOME" "$@"
-ORIGINAL_USER="${1:-$(whoami)}"
-ORIGINAL_HOME="${2:-$HOME}"
+ORIG_USER="${1:-$(whoami)}"
+ORIG_HOME="${2:-$HOME}"
 
 if ! command -v vim >/dev/null 2>&1; then
 	apt install -y vim
 fi
 
-if [ ! -f "$ORIGINAL_HOME/.vimrc" ]; then
-	cat > "$ORIGINAL_HOME/.vimrc" <<'EOF'
+if [ ! -f "$ORIG_HOME/.vimrc" ]; then
+	cat > "$ORIG_HOME/.vimrc" <<'EOF'
 set number
 set relativenumber
 set termguicolors

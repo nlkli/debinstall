@@ -3,8 +3,8 @@
 set -e
 
 [[ $EUID -eq 0 ]] || exec sudo "$0" "$(whoami)" "$HOME" "$@"
-ORIGINAL_USER="${1:-$(whoami)}"
-ORIGINAL_HOME="${2:-$HOME}"
+ORIG_USER="${1:-$(whoami)}"
+ORIG_HOME="${2:-$HOME}"
 
 if ! command -v yazi >/dev/null 2>&1; then
 	wget -O yazi.zip https://github.com/sxyazi/yazi/releases/latest/download/yazi-x86_64-unknown-linux-gnu.zip
@@ -14,10 +14,10 @@ if ! command -v yazi >/dev/null 2>&1; then
 	rm -rf yazi-temp yazi.zip
 fi
 
-mkdir -p "$ORIGINAL_HOME/.config/yazi"
+mkdir -p "$ORIG_HOME/.config/yazi"
 
-if [ ! -f "$ORIGINAL_HOME/.config/yazi/yazi.toml" ]; then
-	cat > "$ORIGINAL_HOME/.config/yazi/yazi.toml" <<'EOF'
+if [ ! -f "$ORIG_HOME/.config/yazi/yazi.toml" ]; then
+	cat > "$ORIG_HOME/.config/yazi/yazi.toml" <<'EOF'
 [mgr]
 show_hidden = true
 ratio = [1, 2, 4]
@@ -44,8 +44,8 @@ rules = [
 	{ name = "*", use = [ "edit", "open" ] },
 ]
 EOF
-if [ ! -f "$ORIGINAL_HOME/.config/yazi/keymap.toml" ]; then
-	cat > "$ORIGINAL_HOME/.config/yazi/keymap.toml" <<'EOF'
+if [ ! -f "$ORIG_HOME/.config/yazi/keymap.toml" ]; then
+	cat > "$ORIG_HOME/.config/yazi/keymap.toml" <<'EOF'
 [mgr]
 append_keymap = [
 	{ on = [ "g", "s" ], run = "cd ~/Desktop", desc = "Go ~/Desktop" },
