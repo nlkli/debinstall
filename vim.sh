@@ -14,10 +14,13 @@ mkdir -p "$ORIG_HOME/.vim/undodir"
 
 if [ ! -f "$ORIG_HOME/.vimrc" ]; then
 	cat > "$ORIG_HOME/.vimrc" <<'EOF'
+syntax on
+filetype plugin indent on
 set number
 set relativenumber
 set termguicolors
 set background=dark
+colorscheme lunaperche
 set hidden
 set noswapfile
 set encoding=utf-8

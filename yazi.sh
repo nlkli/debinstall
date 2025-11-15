@@ -24,7 +24,7 @@ ratio = [1, 2, 4]
 linemode = "size"
 [opener]
 edit = [
-    { run = '${EDITOR:-nvim} "$@"', desc = "editor", block = true },
+    { run = '${EDITOR:-vim} "$@"', desc = "editor", block = true },
 ]
 open = [
     { run = 'xdg-open "$1"', desc = "open", for = "linux" },
