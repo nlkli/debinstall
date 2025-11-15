@@ -7,7 +7,7 @@ set -e
 apt update && apt upgrade -y
 apt dist-upgrade -y
 
-INSTALL="vim git curl wget vnstat ufw htop unzip tar file jq tree net-tools traceroute iputils-ping build-essential openssl sudo man-db ssh openssh-server openssh-client ca-certificates dnsutils gnupg"
+INSTALL="vim git curl wget vnstat ufw htop unzip tar file jq fd-find ripgrep tree net-tools traceroute iputils-ping build-essential openssl sudo man-db ssh openssh-server openssh-client ca-certificates dnsutils gnupg"
 
 apt install -y $INSTALL
 
