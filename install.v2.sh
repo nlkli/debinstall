@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
 
+#TODO
+
 set -e
 
-[[ $EUID -eq 0 ]] || exec sudo "$0" "$@"
+NEW_USERNAME=""
 
 apt update && apt upgrade -y
-apt dist-upgrade -y
 
-INSTALL="sudo curl wget git vim gnupg ncurses-term vnstat ufw htop unzip tar file jq fd-find ripgrep tree net-tools iputils-ping build-essential openssl man-db ssh openssh-server openssh-client ca-certificates dnsutils"
+INSTALL_PKGS="sudo curl wget git vim gnupg ncurses-term vnstat ufw htop unzip tar file jq fd-find ripgrep tree net-tools iputils-ping build-essential openssl man-db ssh openssh-server openssh-client ca-certificates dnsutils"
 
-apt install -y $INSTALL
+apt install -y $INSTALL_PKGS
 
 systemctl enable ssh
 systemctl start ssh
@@ -23,7 +24,6 @@ if ! command -v fastfetch >/dev/null 2>&1; then
     rm -f fastfetch-linux-amd64.deb
 fi
 
-apt update && apt upgrade -y
-apt dist-upgrade -y
-apt autoremove -y
-apt autoclean
+if [ -n "$NEW_USERNAME" ]; then
+
+fi
