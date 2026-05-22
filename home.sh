@@ -61,23 +61,24 @@ if ! command -v rustc >/dev/null 2>&1; then
     rustup update
 fi
 
+# https://github.com/ClementTsang/bottom
+if ! command -v btm >/dev/null 2>&1; then
+    btmversion=$(curl -s "https://api.github.com/repos/ClementTsang/bottom/releases/latest" | jq -r .tag_name)
+    btmfile=bottom_$btmversion-$BTMARCH.deb
+
+    wget -q https://github.com/ClementTsang/bottom/releases/download/$btmversion/$btmfile
+    apt install -y ./$btmfile
+fi
+
+# FIXME
 # golang
 if ! command -v go >/dev/null 2>&1; then
-    local goversion=$(curl -s "https://go.dev/dl/?mode=json" | jq -r '.[0].version')
-    local gofile=$goversion.$GOARCH.tar.gz
+    goversion=$(curl -s "https://go.dev/dl/?mode=json" | jq -r '.[0].version')
+    gofile=$goversion.$GOARCH.tar.gz
 
     wget -q "https://go.dev/dl/$gofile"
     rm -rf /usr/local/go && tar -C /usr/local -xzf $gofile
 
     rg -q 'export PATH=$PATH:/usr/local/go/bin' ~/.zshrc || \
         echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.zshrc
-fi
-
-# https://github.com/ClementTsang/bottom
-if ! command -v btm >/dev/null 2>&1; then
-    local btmversion=$(curl -s "https://api.github.com/repos/ClementTsang/bottom/releases/latest" | jq -r .tag_name)
-    local btmfile=bottom_$btmversion-$BTMARCH.deb
-
-    wget -q https://github.com/ClementTsang/bottom/releases/download/$btmversion/$btmfile
-    apt install -y ./$btmfile
 fi
